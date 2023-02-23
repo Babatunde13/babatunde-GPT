@@ -1,0 +1,69 @@
+{
+    "intents": [
+        {
+            "tag": "greetings",
+            "patterns": ["hello", "hey", "hi", "good day", "greetings", "what's up", "how's it going"],
+            "responses": [
+                "Hello!",
+                "Hey",
+                "Hello there, how can I help you today?",
+                "Hello, I'm Babatunde GPT, how can I help you today?"
+            ]
+        },
+        {
+            "tag": "goodbye",
+            "patterns": ["cya", "See you later", "Goodbye", "Have a nice day", "I'm leaving", "Bye", "See you later", "cao"],
+            "responses": [
+                "Sad to see you go😔",
+                "See you later, thanks for visiting!",
+                "Have a nice day!",
+                "Bye! Come back again soon."
+            ]
+        },
+        {
+            "tag": "age",
+            "patterns": ["how old are you", "what is your age", "what's your age", "how old are you?", "how old is Babatunde"],
+            "responses": [
+                "Babatunde is 21 year old",
+                "Babatunde GPT is 1 year old",
+                "I am 1 year old",
+                "I am 21 years old"
+            ]
+        },
+        {
+            "tag": "name",
+            "patterns": ["what is your name", "what's your name", "what are you called", "what do I call you", "what is your name?", "what's your name?", "What's the name of your creator"],
+            "responses": [
+               "My name is Babatunde GPT",
+               "I am Babatunde GPT",
+               "My name is Babatunde GPT, what about you?",
+               "My creator is Babatunde"
+            ]
+        },
+        {
+            "tag": "shop",
+            "patterns": ["I'd like to buy something", "what do you recommend?", "What are your products", "What are you selling?"],
+            "responses": [
+                "We sell a variety of products, from electronics to clothing",
+                "You can buy books, electronics, clothing, and more"
+            ]
+        },
+        {
+            "tag": "hours",
+            "patterns": ["When are you open?", "What are your hours?", "What are your opening hours?", "When do you open?", "When do you close?"],
+            "responses": [
+                "We are open every day from 9am to 5pm",
+                "Our hours are 9am to 5pm every day"
+            ]
+        },
+        {
+            "tag": "stocks",
+            "patterns": ["What stocks do I own?", "how are my shares doing?", "what are my stocks?", "what are my shares?", "what are my stocks doing?", "what are my shares doing?", "What companies can I invest in?"],
+            "responses": [
+                "You own shares in AAPL, AABV, and FB, NVDA and ETF",
+                "You have 500 shares in AAPL, 100 shares in AABV, and 1000 shares in FB, NVDA and ETF",
+                "You can buy shares in Apple, Amazon, Facebook, Nvidia, and ETF"
+            ]
+        }
+    ]
+}
