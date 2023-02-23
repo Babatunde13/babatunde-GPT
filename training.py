@@ -1,19 +1,22 @@
 import random, json, pickle, os, nltk, numpy as np
 from lemmatizer import CustomLemmatizer
-# from tf import NeuralNetwork
+from tf import NeuralNetwork
 from tokenizer import CustomTokenizer
 
 class TokenizeAndLemmatizeIntents:
     def __init__(self, intents):
         # punkt is a pre-trained model that is used to tokenize words
-        pre_trained_model_dir = './data'
-        if not os.path.exists(pre_trained_model_dir):
-            os.makedirs(pre_trained_model_dir)
+        PRE_TRAINED_MODEL_DIR = './data'
+        self.WORDS_SERIALIZATION_PATH = os.path.join(PRE_TRAINED_MODEL_DIR, 'words.pickle')
+        self.CLASSES_SERIALIZATION_PATH = os.path.join(PRE_TRAINED_MODEL_DIR, 'classes.pickle')
+        self.DOCUMENTS_SERIALIZATION_PATH = os.path.join(PRE_TRAINED_MODEL_DIR, 'documents.pickle')
+        if not os.path.exists(PRE_TRAINED_MODEL_DIR):
+            os.makedirs(PRE_TRAINED_MODEL_DIR)
 
-        nltk.data.path.append(pre_trained_model_dir)
-        nltk.download('punkt', download_dir=pre_trained_model_dir)
+        nltk.data.path.append(PRE_TRAINED_MODEL_DIR)
+        nltk.download('punkt', download_dir=PRE_TRAINED_MODEL_DIR)
         # wordnet is a lexical database for the English language
-        nltk.download('wordnet', download_dir=pre_trained_model_dir)
+        nltk.download('wordnet', download_dir=PRE_TRAINED_MODEL_DIR)
 
         self.intents = intents
         self.words = []
@@ -37,15 +40,15 @@ class TokenizeAndLemmatizeIntents:
         self.classes = sorted(set(self.classes))
 
     def save_words(self):
-        with open('data/words.pickle', 'wb') as f:
+        with open(self.WORDS_SERIALIZATION_PATH, 'wb') as f:
             pickle.dump(self.words, f)
     
     def save_classes(self):
-        with open('data/classes.pickle', 'wb') as f:
+        with open(self.CLASSES_SERIALIZATION_PATH, 'wb') as f:
             pickle.dump(self.classes, f)
     
     def save_documents(self):
-        with open('data/documents.pickle', 'wb') as f:
+        with open(self.DOCUMENTS_SERIALIZATION_PATH, 'wb') as f:
             pickle.dump(self.documents, f)
     
     def save(self):
@@ -78,9 +81,6 @@ class WordTransformer:
         self.output_empty = [0] * len(self.classes)
 
     def transform(self):
-        d = {}
-        s = {}
-        i = 1
         for doc in self.documents:
             bag = []
             word_patterns = doc[0]
@@ -90,12 +90,7 @@ class WordTransformer:
             
             output_row = list(self.output_empty)
             output_row[self.classes.index(doc[1])] = 1
-            d[i] = bag
-            s[i] = output_row
-            i += 1
             self.training.append([bag, output_row])
-        json.dump(d, open('data/bag.json', 'w'))
-        json.dump(s, open('data/output.json', 'w'))
 
         random.shuffle(self.training)
         self.training = np.array(self.training)
@@ -105,7 +100,5 @@ class WordTransformer:
 
 wordTransformer = WordTransformer()
 train_x, train_y = wordTransformer.transform()
-# neuralNetwork = NeuralNetwork(train_x, train_y)
-# neuralNetwork.train()
-
-
+neuralNetwork = NeuralNetwork(train_x, train_y)
+neuralNetwork.train()
