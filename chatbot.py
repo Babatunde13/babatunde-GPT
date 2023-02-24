@@ -11,6 +11,7 @@ class ChatBot:
         self.classes = pickle.load(open('data/classes.pickle', 'rb'))
         self.documents = pickle.load(open('data/documents.pickle', 'rb'))
 
+        print("Loading pre trained model")
         self.model = load_model('data/chatbot_model.h5')
 
     def clean_up_sentence(self, sentence):
